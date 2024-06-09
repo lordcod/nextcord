@@ -298,6 +298,7 @@ class Modal:
 
     def _dispatch(self, interaction: Interaction) -> None:
         if self.__stopped.done():
+            interaction._state.dispatch('modal_not_found', interaction)
             return
 
         task = asyncio.create_task(
@@ -424,6 +425,7 @@ class ModalStore:
         # was added without an associated message_id
         modal = self._modals.get(key) or self._modals.get((None, custom_id))
         if modal is None:
+            self._state.dispatch('modal_not_found', interaction)
             return
 
         modal._dispatch(interaction)

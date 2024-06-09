@@ -414,6 +414,7 @@ class View:
 
     def _dispatch_item(self, item: Item, interaction: Interaction) -> None:
         if self.__stopped.done():
+            interaction._state.dispatch('view_not_found', interaction)
             return
 
         task = asyncio.create_task(
@@ -546,6 +547,7 @@ class ViewStore:
         # was added without an associated message_id
         value = self._views.get(key) or self._views.get((component_type, None, custom_id))
         if value is None:
+            self._state.dispatch('view_not_found', interaction)
             return
 
         view, item = value
