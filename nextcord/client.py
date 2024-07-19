@@ -2127,14 +2127,6 @@ class Client:
                     **response_signature
                 )
                 if app_cmd:
-                    if not isinstance(app_cmd, BaseApplicationCommand):
-                        raise ValueError(
-                            (
-                                f".get_application_command_from_signature with kwargs: {response_signature} "
-                                f"returned {type(app_cmd)} but BaseApplicationCommand was expected."
-                            )
-                        )
-
                     _log.debug(
                         "nextcord.Client: Basic signature matches, checking against raw payload."
                     )
