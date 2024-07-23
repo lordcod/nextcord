@@ -86,6 +86,7 @@ if TYPE_CHECKING:
     from .scheduled_events import ScheduledEvent
     from .types.interactions import ApplicationCommand as ApplicationCommandPayload
     from .voice_client import VoiceProtocol
+    from .ui.item import Item
 
 __all__ = ("Client",)
 
@@ -599,6 +600,26 @@ class Client:
         traceback.print_exception(
             type(exception), exception, exception.__traceback__, file=sys.stderr
         )
+
+    async def on_application_item_error(self, error: Exception, item: Item, interaction: Interaction) -> None:
+        """|coro|
+
+        A callback that is called when an item's callback or :meth:`interaction_check`
+        fails with an error.
+
+        The default implementation prints the traceback to stderr.
+
+        Parameters
+        ----------
+        error: :class:`Exception`
+            The exception that was raised.
+        item: :class:`Item`
+            The item that failed the dispatch.
+        interaction: :class:`~nextcord.Interaction`
+            The interaction that led to the failure.
+        """
+        print(f"Ignoring exception in view {self} for item {item}:", file=sys.stderr)  # noqa: T201
+        traceback.print_exception(error.__class__, error, error.__traceback__, file=sys.stderr)
 
     # hooks
 

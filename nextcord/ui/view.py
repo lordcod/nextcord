@@ -371,8 +371,7 @@ class View:
         interaction: :class:`~nextcord.Interaction`
             The interaction that led to the failure.
         """
-        print(f"Ignoring exception in view {self} for item {item}:", file=sys.stderr)  # noqa: T201
-        traceback.print_exception(error.__class__, error, error.__traceback__, file=sys.stderr)
+        interaction.client.dispatch('application_item_error', error, item, interaction)
 
     async def _scheduled_task(self, item: Item, interaction: Interaction):
         try:
