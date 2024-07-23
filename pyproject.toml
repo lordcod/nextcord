@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "nextcord"
 # Placeholder, modified by dynamic-versioning.
-version = "0.0.0-alpha.2-lordcod-feats"
+version = "0.0.0-alpha.3"
 homepage = "https://github.com/nextcord/nextcord"
 documentation = "https://docs.nextcord.dev/"
 description = "A Python wrapper for the Discord API forked from discord.py"
